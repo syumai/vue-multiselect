@@ -37,12 +37,13 @@ export default {
         'multiselect__option--selected': this.isSelected(option)
       }
     },
-    addPointerElement ({ key } = 'Enter') {
+    addPointerElement ({ target, key = 'Enter' }) {
       /* istanbul ignore else */
       if (this.filteredOptions.length > 0) {
         this.select(this.filteredOptions[this.pointer], key)
       }
       this.pointerReset()
+      target.focus()
     },
     pointerForward () {
       /* istanbul ignore else */
