@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Vue multiselect test</title>
+    <link rel="stylesheet" href="../dist/vue-multiselect.min.css">
+  </head>
+  <body>
+    <div id="app">
+      <label class="typo__label">Tagging</label>
+      <multiselect v-model="value"
+                   tag-placeholder="Add this as new tag"
+                   placeholder="Search or add a tag"
+                   label="name"
+                   track-by="code"
+                   :options="options"
+                   :multiple="true"
+                   :taggable="true"
+                   :hide-selected="true"
+                   @tag="addTag">
+      </multiselect>
+      <pre class="language-json"><code>{{ value  }}</code></pre>
+    </div>
+
+    <script src="https://unpkg.com/vue@2.2.6/dist/vue.min.js"></script>
+    <script src="../dist/vue-multiselect.min.js"></script>
+    <script>
+new Vue({
+  el: '#app',
+  components: { Multiselect: VueMultiselect.Multiselect },
+  data: {
+    value: [
+      { name: 'Javascript', code: 'js' }
+    ],
+    options: [
+      { name: 'Vue.js', code: 'vu' },
+      { name: 'Javascript', code: 'js' },
+      { name: 'Monterail', code: 'pl' },
+      { name: 'Open Source', code: 'os' }
+    ]
+  },
+  methods: {
+    addTag: function (newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+      }
+      this.options.push(tag)
+      this.value.push(tag)
+    }
+  }
+});
+    </script>
+  </body>
+</html>
